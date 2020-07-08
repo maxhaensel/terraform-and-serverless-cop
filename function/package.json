@@ -1,0 +1,12 @@
+{
+  "name": "tf-serverless",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "serverless": "serverless"
+  },
+  "dependencies": {
+    "serverless": "1.65.3"
+  }
+}

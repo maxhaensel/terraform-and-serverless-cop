@@ -1,0 +1,32 @@
+service: cop-architektur
+
+provider:
+  name: azure
+  runtime: nodejs12.x
+  stage: dev
+  region: eu-central-1
+
+  apiGateway:
+    restApiId: ${ssm:/api_gateway_id} #api_gateway_id
+    restApiRootResourceId: ${ssm:/api_gateway_root_resource_id} #api_gateway_root_resource_id
+
+package:
+  exclude:
+    - node_modules/**
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: hello
+          method: get
+          cors: true
+
+  world:
+    handler: handler.hello
+    events:
+      - s3:
+          bucket: ${ssm:/bucket-name}
+          event: s3:ObjectCreated:*
+          existing: true
